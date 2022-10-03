@@ -1,5 +1,5 @@
-# terraform-provider-easy-category-purpose
-LederWorks Easy Category Purpose Module
+# terraform-azurerm-easy-brick-compute-managed-disk
+LederWorks Easy Compute Managed Disk Brick Module
 
 ## Authors
   - [Bence Bánó](mailto:bence.bano@lederworks.com)
