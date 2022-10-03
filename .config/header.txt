@@ -1,3 +1,4 @@
+<!-- markdownlint-disable-file MD033 MD012 -->
 # terraform-azurerm-easy-brick-compute-managed-disk
 LederWorks Easy Compute Managed Disk Brick Module
 
