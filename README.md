@@ -3,21 +3,16 @@
 # terraform-azurerm-easy-brick-compute-managed-disk
 LederWorks Easy Compute Managed Disk Brick Module
 
-## Authors
-  - [Bence Bánó](mailto:bence.bano@lederworks.com)
+This module were created by [LederWorks](https://lederworks.com) IaC enthusiasts.
 
 ## About This Module
-This module implements the [SECTION](https://lederworks.com/docs/microsoft-azure/bricks/compute/#section) reference Insight.
+This module implements the [managed disk](https://lederworks.com/docs/microsoft-azure/bricks/compute/#managed-disk) reference Insight.
 
 ## How to Use This Modul
 - Ensure Azure credentials are [in place](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs#authenticating-to-azure) (e.g. `az login` and `az account set --subscription="SUBSCRIPTION_ID"` on your workstation)
     - Owner role or equivalent is required!
 - Ensure pre-requisite resources are created.
 - Create a Terraform configuration that pulls in this module and specifies values for the required variables.
-
-## Disclaimer / Known Issues
-- Disclaimer
-- Known Issues
 
 ## Requirements
 
@@ -36,8 +31,6 @@ The following providers are used by this module:
 ## Example
 
 ```hcl
-### Example
-
 #Resource Group
 resource "azurerm_resource_group" "compute-managed-disk" {
   name     = "compute-managed-disk"
@@ -303,13 +296,13 @@ list(object({
 
 ### <a name="input_resource_group_object"></a> [resource\_group\_object](#input\_resource\_group\_object)
 
-Description: Resource Group Object
+Description: (Required) Resource Group Object
 
 Type: `any`
 
 ### <a name="input_subscription_id"></a> [subscription\_id](#input\_subscription\_id)
 
-Description: ID of the Subscription
+Description: (Required) ID of the Subscription
 
 Type: `any`
 
@@ -359,7 +352,7 @@ Default: `"15m"`
 
 ### <a name="input_tags"></a> [tags](#input\_tags)
 
-Description: BYO Tags, preferrable from a local on your side :D
+Description: BYO Tags, as a map(string)
 
 Type: `map(string)`
 
@@ -371,7 +364,7 @@ The following outputs are exported:
 
 ### <a name="output_managed_disk_list"></a> [managed\_disk\_list](#output\_managed\_disk\_list)
 
-Description: n/a
+Description: Map of created disks with name and ID.
 
 <!-- markdownlint-disable-file MD033 MD012 -->
 ## Contributing
@@ -384,9 +377,7 @@ Description: n/a
   In case of feature contribution, we kindly ask you to open an issue to
   discuss it beforehand.
 
-## License & Authors
-
-Author: Bence Bánó (@Ledermayer)
+## License
 
 ```text
 MIT License
