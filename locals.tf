@@ -1,7 +1,7 @@
 locals {
   #Tags
   tags = merge({
-    creation_mode                               = "terraform",
-    terraform-azurerm-easy-brick-compute-managed_disk = "True"
+    creation-mode                               = "terraform",
+    terraform-azurerm-easy-brick-compute-managed-disk = "True"
   }, var.tags)
 }

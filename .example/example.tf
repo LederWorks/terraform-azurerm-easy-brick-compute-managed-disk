@@ -17,7 +17,7 @@ module "compute-managed-disk" {
   resource_group_object = azurerm_resource_group.compute-managed-disk
 
   # Tags
-  tags = data.terraform_remote_state.va2_infrastructure.outputs.terratest-tags
+  tags = local.tags
 
   managed_disk = [
 
