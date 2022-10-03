@@ -1,6 +1,6 @@
 # Common Variables
 variable "subscription_id" {
-  description = "ID of the Subscription"
+  description = "(Required) ID of the Subscription"
   type = any
   validation {
     condition = can(regex("\\b[0-9a-f]{8}\\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\\b[0-9a-f]{12}\\b", var.subscription_id))
@@ -9,12 +9,12 @@ variable "subscription_id" {
 }
 
 variable "resource_group_object" {
-  description = "Resource Group Object"
+  description = "(Required) Resource Group Object"
   type = any
 }
 
 variable "tags" {
-  description = "BYO Tags, preferrable from a local on your side :D"
+  description = "BYO Tags, as a map(string)"
   type = map(string)
   default = null
 }

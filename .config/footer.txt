@@ -9,9 +9,7 @@
   In case of feature contribution, we kindly ask you to open an issue to
   discuss it beforehand.
 
-## License & Authors
-
-Author: Bence Bánó (@Ledermayer)
+## License
 
 ```text
 MIT License
