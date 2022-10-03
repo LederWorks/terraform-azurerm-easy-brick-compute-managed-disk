@@ -1,5 +1,3 @@
-### Example
-
 #Resource Group
 resource "azurerm_resource_group" "compute-managed-disk" {
   name     = "compute-managed-disk"
