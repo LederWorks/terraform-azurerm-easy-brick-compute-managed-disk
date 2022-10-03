@@ -1,8 +1,8 @@
 formatter: markdown document
 
 version: ""
-header-from: .config/header.txt
-footer-from: .config/footer.txt
+header-from: .config/header.md
+footer-from: .config/footer.md
 
 
 sections:
