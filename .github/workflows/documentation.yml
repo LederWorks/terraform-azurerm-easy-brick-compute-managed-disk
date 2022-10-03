@@ -1,5 +1,5 @@
 
-name: Generate README.MD
+name: Generate README.md
 on:
   - pull_request
 
@@ -16,7 +16,7 @@ jobs:
       with:
         working-dir: .
         config-file: .config/.terraform-docs.yml
-        output-file: README.MD
+        output-file: README.md
         output-method: inject
         output-format: markdown document
         git-push: "true"
