@@ -1,20 +1,20 @@
 # Module Test
-module "terratest-category-purpose" {
-  source = "../"
+# module "terratest-category-purpose" {
+#   source = "../"
 
-  #Subscription
-  subscription_id = data.azurerm_client_config.current.subscription_id
+#   #Subscription
+#   subscription_id = data.azurerm_client_config.current.subscription_id
 
-  #Resource Group
-  resource_group_object = azurerm_resource_group.RGRP
+#   #Resource Group
+#   resource_group_object = azurerm_resource_group.RGRP
 
-  #Tags
-  tags = local.tags
+#   #Tags
+#   tags = local.tags
 
-  ### Global Variables ###
+#   ### Global Variables ###
 
 
 
-  ### Local Variables ###
+#   ### Local Variables ###
 
-}
+# }

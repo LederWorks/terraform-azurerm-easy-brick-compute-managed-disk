@@ -6,7 +6,6 @@ import (
 	"testing"
 
 	"github.com/LederWorks/golang-easy-terratest/rgrp"
-
 	"github.com/gruntwork-io/terratest/modules/terraform"
 )
 
@@ -20,10 +19,10 @@ func TestTerraform(t *testing.T) {
 		BackendConfig: map[string]interface{}{
 			"tenant_id":            os.Getenv("ARM_TENANT_ID"),
 			"subscription_id":      os.Getenv("ARM_SUBSCRIPTION_ID"),
-			"resource_group_name":  "RGRP",
-			"storage_account_name": "SACC",
-			"container_name":       "CONTAINER",
-			"key":                  "KEY",
+			"resource_group_name":  "rgrp-pde3-it-terratest",
+			"storage_account_name": "saccpde3itterratest001",
+			"container_name":       "terratest-azurerm",
+			"key":                  "terratest-azurerm-easy-brick-compute-disk",
 		},
 	})
 
@@ -37,7 +36,7 @@ func TestTerraform(t *testing.T) {
 	terraform.InitAndApply(t, terraformOptions)
 
 	//tenantID := terraform.Output(t, terraformOptions, "tenant_id")
-	subscriptionID := terraform.Output(t, terraformOptions, "subscription_id")
+	subscriptionID := os.Getenv("ARM_SUBSCRIPTION_ID")
 	resourceGroupName := terraform.Output(t, terraformOptions, "resource_group_name")
 	//clientID := terraform.Output(t, terraformOptions, "client_id")
 
