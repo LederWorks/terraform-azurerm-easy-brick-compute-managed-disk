@@ -10,7 +10,7 @@ This module implements the [managed disk](https://lederworks.com/docs/microsoft-
 
 ## How to Use This Modul
 - Ensure Azure credentials are [in place](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs#authenticating-to-azure) (e.g. `az login` and `az account set --subscription="SUBSCRIPTION_ID"` on your workstation)
-    - Owner role or equivalent is required!
+- Owner role or equivalent is required!
 - Ensure pre-requisite resources are created.
 - Create a Terraform configuration that pulls in this module and specifies values for the required variables.
 
@@ -382,7 +382,7 @@ Description: Map of created disks with name and ID.
 ```text
 MIT License
 
-Copyright (c) 2022 LederWorks
+Copyright (c) 2023 LederWorks
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
