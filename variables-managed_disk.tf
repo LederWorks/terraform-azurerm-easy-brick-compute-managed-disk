@@ -1,6 +1,6 @@
 variable "managed_disk" {
   description = <<EOT
-    (Required) Manages managed disks.
+    (Optional) Manages managed disks.
     For more information on managed disks, such as sizing options and pricing, please check out https://docs.microsoft.com/en-us/azure/virtual-machines/managed-disks-overview.
 
     CREATE OPTIONS
@@ -150,6 +150,7 @@ variable "managed_disk" {
     timeout_read   = optional(string)
     timeout_delete = optional(string)
   }))
+  default = null
 }
 
 #Global Vars

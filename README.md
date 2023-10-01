@@ -59,45 +59,45 @@ module "compute-managed-disk" {
     #################################
     {
       #Required
-      managed_disk_name         = "managed-disk-001"
-      managed_disk_storage_type = "Premium_LRS"
+      name         = "managed-disk-001"
+      storage_type = "Premium_LRS"
 
       #Create Options
-      managed_disk_create_option            = ""
-      managed_disk_marketplace_reference_id = ""
-      managed_disk_gallery_reference_id     = ""
-      managed_disk_source_resource_id       = ""
-      managed_disk_source_uri               = ""
-      managed_disk_source_storage_id        = ""
-      managed_disk_os_type                  = ""
-      managed_disk_hyper_v_generation       = ""
+      create_option            = ""
+      marketplace_reference_id = ""
+      gallery_reference_id     = ""
+      source_resource_id       = ""
+      source_uri               = ""
+      source_storage_id        = ""
+      os_type                  = ""
+      hyper_v_generation       = ""
 
       #Disk Options
-      managed_disk_size_gb     = 63
-      managed_disk_sector_size = number
-      managed_disk_tier        = ""
-      managed_disk_max_shares  = number
-      managed_disk_zone        = 3
+      size_gb     = 63
+      sector_size = number
+      tier        = ""
+      max_shares  = number
+      zone        = 3
 
       #Ultra SSD Options
-      managed_disk_iops_read_write = ""
-      managed_disk_iops_read_only  = ""
-      managed_disk_mbps_read_write = ""
-      managed_disk_mbps_read_only  = ""
+      iops_read_write = ""
+      iops_read_only  = ""
+      mbps_read_write = ""
+      mbps_read_only  = ""
 
       #Network Options
-      managed_disk_public_access_enabled = bool
-      managed_disk_access_policy         = ""
-      managed_disk_access_id             = ""
+      public_access_enabled = bool
+      access_policy         = ""
+      access_id             = ""
 
       #Encryption
-      managed_disk_encryption_set_id = ""
+      encryption_set_id = ""
 
       #Timeouts
-      managed_disk_timeout_create = ""
-      managed_disk_timeout_update = ""
-      managed_disk_timeout_read   = ""
-      managed_disk_timeout_delete = ""
+      timeout_create = ""
+      timeout_update = ""
+      timeout_read   = ""
+      timeout_delete = ""
 
 
     },
@@ -106,34 +106,13 @@ module "compute-managed-disk" {
     #### Disk 002 ####
     ##################
     {
-      managed_disk_name         = "managed-disk-002"
-      managed_disk_storage_type = "Standard_LRS"
-      managed_disk_size_gb      = 63
-      managed_disk_zone         = 3
+      name         = "managed-disk-002"
+      storage_type = "Standard_LRS"
+      size_gb      = 63
+      zone         = 3
     }
   ]
 }
-
-
-
-#Outputs
-#auth
-output "tenant_id" {
-  value = data.azurerm_client_config.current.tenant_id
-}
-output "subscription_id" {
-  value = data.azurerm_client_config.current.subscription_id
-}
-output "client_id" {
-  value = data.azurerm_client_config.current.client_id
-}
-
-#rgrp
-output "resource_group_name" {
-  value = azurerm_resource_group.compute-managed-disk.name
-}
-
-#disks
 output "managed_disk_list" {
   value = module.compute-managed-disk.managed_disk_list
 }
@@ -149,9 +128,25 @@ The following resources are used by this module:
 
 The following input variables are required:
 
+### <a name="input_resource_group_object"></a> [resource\_group\_object](#input\_resource\_group\_object)
+
+Description: (Required) Resource Group Object
+
+Type: `any`
+
+### <a name="input_subscription_id"></a> [subscription\_id](#input\_subscription\_id)
+
+Description: (Required) ID of the Subscription
+
+Type: `string`
+
+## Optional Inputs
+
+The following input variables are optional (have default values):
+
 ### <a name="input_managed_disk"></a> [managed\_disk](#input\_managed\_disk)
 
-Description:     (Required) Manages managed disks.  
+Description:     (Optional) Manages managed disks.  
     For more information on managed disks, such as sizing options and pricing, please check out https://docs.microsoft.com/en-us/azure/virtual-machines/managed-disks-overview.
 
     CREATE OPTIONS
@@ -304,21 +299,7 @@ list(object({
   }))
 ```
 
-### <a name="input_resource_group_object"></a> [resource\_group\_object](#input\_resource\_group\_object)
-
-Description: (Required) Resource Group Object
-
-Type: `any`
-
-### <a name="input_subscription_id"></a> [subscription\_id](#input\_subscription\_id)
-
-Description: (Required) ID of the Subscription
-
-Type: `string`
-
-## Optional Inputs
-
-The following input variables are optional (have default values):
+Default: `null`
 
 ### <a name="input_managed_disk_encryption_set_id"></a> [managed\_disk\_encryption\_set\_id](#input\_managed\_disk\_encryption\_set\_id)
 
