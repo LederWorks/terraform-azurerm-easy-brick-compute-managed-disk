@@ -26,7 +26,7 @@ resource "azurerm_managed_disk" "managed_disk" {
   storage_account_type = each.value.storage_type
 
   #Create Options
-  create_option              = coalesce(each.value.create_option, "Empty")
+  create_option              = each.value.create_option
   image_reference_id         = each.value.create_option == "FromImage" ? each.value.marketplace_reference_id : null
   gallery_image_reference_id = each.value.create_option == "FromImage" ? each.value.gallery_reference_id : null
   source_resource_id         = each.value.create_option == "Copy" || each.value.create_option == "Restore" ? each.value.source_resource_id : null
@@ -37,21 +37,23 @@ resource "azurerm_managed_disk" "managed_disk" {
   upload_size_bytes          = each.value.create_option == "Upload" ? each.value.upload_size_bytes : null
 
   #Disk Options
-  disk_size_gb        = each.value.create_option != "Import" || each.value.create_option != "Restore" ? each.value.size_gb : null
-  logical_sector_size = each.value.storage_type == "UltraSSD_LRS" ? coalesce(each.value.sector_size, 4096) : null
-  tier                = each.value.storage_type == "Premium_LRS" || each.value.storage_type == "Premium_ZRS" ? each.value.tier : null
-  max_shares          = ((each.value.storage_type == "Premium_LRS" || each.value.storage_type == "Premium_ZRS") && each.value.tier == null) || each.value.storage_type == "UltraSSD_LRS" ? each.value.max_shares : null
-  zone                = each.value.zone
+  disk_size_gb                      = each.value.create_option != "Import" || each.value.create_option != "Restore" ? each.value.size_gb : null
+  logical_sector_size               = each.value.storage_type == "UltraSSD_LRS" || each.value.storage_type == "PremiumV2_LRS" ? coalesce(each.value.sector_size, 4096) : null
+  tier                              = each.value.storage_type == "Premium_LRS" || each.value.storage_type == "Premium_ZRS" ? each.value.tier : null
+  max_shares                        = ((each.value.storage_type == "Premium_LRS" || each.value.storage_type == "Premium_ZRS") && each.value.tier == null) || each.value.storage_type == "UltraSSD_LRS" ? each.value.max_shares : null
+  zone                              = each.value.zone
+  optimized_frequent_attach_enabled = each.value.optimized_frequent_attach_enabled
+  performance_plus_enabled          = each.value.storage_type == "UltraSSD_LRS" ? each.value.performance_plus_enabled : null
 
   #Ultra SSD Options
-  disk_iops_read_write = each.value.storage_type == "UltraSSD_LRS" ? each.value.iops_read_write : null
-  disk_iops_read_only  = each.value.storage_type == "UltraSSD_LRS" ? each.value.iops_read_only : null
-  disk_mbps_read_write = each.value.storage_type == "UltraSSD_LRS" ? each.value.mbps_read_write : null
-  disk_mbps_read_only  = each.value.storage_type == "UltraSSD_LRS" ? each.value.mbps_read_only : null
+  disk_iops_read_write = each.value.storage_type == "UltraSSD_LRS" || each.value.storage_type == "PremiumV2_LRS" ? each.value.iops_read_write : null
+  disk_iops_read_only  = each.value.storage_type == "UltraSSD_LRS" || each.value.storage_type == "PremiumV2_LRS" ? each.value.iops_read_only : null
+  disk_mbps_read_write = each.value.storage_type == "UltraSSD_LRS" || each.value.storage_type == "PremiumV2_LRS" ? each.value.mbps_read_write : null
+  disk_mbps_read_only  = each.value.storage_type == "UltraSSD_LRS" || each.value.storage_type == "PremiumV2_LRS" ? each.value.mbps_read_only : null
 
   #Network Options
-  public_network_access_enabled = coalesce(each.value.public_access_enabled, true)
-  network_access_policy         = coalesce(each.value.access_policy, "AllowAll")
+  public_network_access_enabled = each.value.public_access_enabled
+  network_access_policy         = each.value.access_policy
   disk_access_id                = each.value.access_policy == "AllowPrivate" ? each.value.access_id : null
 
   #Encryption Options

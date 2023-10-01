@@ -3,19 +3,17 @@ variable "managed_disk" {
     (Required) Manages managed disks.
     For more information on managed disks, such as sizing options and pricing, please check out https://docs.microsoft.com/en-us/azure/virtual-machines/managed-disks-overview.
 
-    REQUIRED
+    CREATE OPTIONS
 
     name          - (Required) Specifies the name of the Managed Disk. Changing this forces a new resource to be created.
 
-    storage_type  - (Required) The type of storage to use for the managed disk. Possible values are Standard_LRS, StandardSSD_ZRS, Premium_LRS, PremiumV2_LRS, Premium_ZRS, StandardSSD_LRS or UltraSSD_LRS.
-                      Azure Ultra Disk Storage is only available in a region that support availability zones and can only enabled on selected VM series.
-                      ZRS managed disk currently available only in selected regions. For more information please check https://docs.microsoft.com/en-gb/azure/virtual-machines/disks-redundancy#zone-redundant-storage-for-managed-disks.
-                      For more information see the Azure Ultra Disk Storage product documentation https://docs.microsoft.com/en-us/azure/virtual-machines/disks-enable-ultra-ssd?tabs=azure-portal.
-
-    CREATE OPTIONS
+    storage_type  - (Optional) The type of storage to use for the managed disk. Possible values are Standard_LRS, StandardSSD_ZRS, Premium_LRS, PremiumV2_LRS, Premium_ZRS, StandardSSD_LRS or UltraSSD_LRS.
+                    Azure Ultra Disk Storage is only available in a region that support availability zones and can only enabled on selected VM series.
+                    ZRS managed disk currently available only in selected regions. For more information please check https://docs.microsoft.com/en-gb/azure/virtual-machines/disks-redundancy#zone-redundant-storage-for-managed-disks.
+                    For more information see the Azure Ultra Disk Storage product documentation https://docs.microsoft.com/en-us/azure/virtual-machines/disks-enable-ultra-ssd?tabs=azure-portal.
 
     create_option - (Optional) The method to use when creating the managed disk. Defaults to Empty.
-                                   Changing this forces a new resource to be created. Possible values include:
+                    Changing this forces a new resource to be created. Possible values include:
 
         Import    - Import a VHD file in to the managed disk (VHD specified with source_uri).
         Empty     - Create an empty managed disk.
@@ -65,15 +63,21 @@ variable "managed_disk" {
                   Terraform will attempt to start the machine again after the update if it was in a running state when the apply was started.
 
     max_shares  - (Optional) The maximum number of VMs that can attach to the disk at the same time. Defaults to 1.
-                                Value greater than one indicates a disk that can be mounted on multiple VMs at the same time.
-                                Premium SSD maxShares limit: 
-                                    P15 and P20 disks: 2. 
-                                    P30,P40,P50 disks: 5. 
-                                    P60,P70,P80 disks: 10. 
-                                For ultra disks the max_shares minimum value is 1 and the maximum is 5.
+                  Value greater than one indicates a disk that can be mounted on multiple VMs at the same time.
+                    Premium SSD maxShares limit: 
+                      P15 and P20 disks: 2. 
+                      P30,P40,P50 disks: 5. 
+                      P60,P70,P80 disks: 10. 
+                  For ultra disks the max_shares minimum value is 1 and the maximum is 5.
 
     zone        - (Optional) Specifies the Availability Zone in which this Managed Disk should be located. Changing this property forces a new resource to be created.
 
+    optimized_frequent_attach_enabled - (Optional) Specifies whether this Managed Disk should be optimized for frequent disk attachments (where a disk is attached/detached more than 5 times in a day). Defaults to false.
+                                        Note: Setting optimized_frequent_attach_enabled to true causes the disks to not align with the fault domain of the Virtual Machine, which can have operational implications.
+
+    performance_plus_enabled          - (Optional) Specifies whether Performance Plus is enabled for this Managed Disk. Defaults to false. Changing this forces a new resource to be created.
+                                        Note: performance_plus_enabled can only be set to true when using a Managed Disk with an Ultra SSD.
+    
     ULTRA SSD OPTIONS
 
     iops_read_write - (Optional) The number of IOPS allowed for this disk; only settable for UltraSSD disks. One operation can transfer between 4k and 256k bytes.
@@ -110,31 +114,33 @@ variable "managed_disk" {
   EOT
   type = list(object({
     name         = string
-    storage_type = string
+    storage_type = optional(string, "Standard_LRS")
     #Create Options
-    create_option            = optional(string)
-    marketplace_reference_id = optional(string)
-    gallery_reference_id     = optional(string)
-    source_resource_id       = optional(string)
-    source_uri               = optional(string)
-    source_storage_id        = optional(string)
-    os_type                  = optional(string)
-    hyper_v_generation       = optional(string)
-    managed_disk_upload_size_bytes        = optional(number)
+    create_option                  = optional(string, "Empty")
+    marketplace_reference_id       = optional(string)
+    gallery_reference_id           = optional(string)
+    source_resource_id             = optional(string)
+    source_uri                     = optional(string)
+    source_storage_id              = optional(string)
+    os_type                        = optional(string)
+    hyper_v_generation             = optional(string)
+    managed_disk_upload_size_bytes = optional(number)
     #Disk Options
-    size_gb     = optional(number)
-    sector_size = optional(number)
-    tier        = optional(string)
-    max_shares  = optional(number)
-    zone        = optional(number)
+    size_gb                           = optional(number)
+    sector_size                       = optional(number)
+    tier                              = optional(string)
+    max_shares                        = optional(number)
+    zone                              = optional(number)
+    optimized_frequent_attach_enabled = optional(bool, false)
+    performance_plus_enabled          = optional(bool, false)
     #Ultra SSD Options
     iops_read_write = optional(string)
     iops_read_only  = optional(string)
     mbps_read_write = optional(string)
     mbps_read_only  = optional(string)
     #Network Options
-    public_access_enabled = optional(bool)
-    access_policy         = optional(string)
+    public_access_enabled = optional(bool, true)
+    access_policy         = optional(string, "AllowAll")
     access_id             = optional(string)
     #Encryption
     encryption_set_id = optional(string)
@@ -172,6 +178,6 @@ variable "managed_disk_timeout_delete" {
 #Encryption
 variable "managed_disk_encryption_set_id" {
   description = "(Optional) The ID of a Disk Encryption Set which should be used to encrypt this Managed Disk."
-  type = string
-  default = null
+  type        = string
+  default     = null
 }
