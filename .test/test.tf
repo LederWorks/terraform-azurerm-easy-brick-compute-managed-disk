@@ -1,5 +1,5 @@
 # Module Test
-module "terratest-category-purpose" {
+module "terratest-compute-disk" {
   source = "../"
 
   #Subscription

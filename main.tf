@@ -1,3 +1,4 @@
+################################ Managed Disks
 resource "azurerm_managed_disk" "managed_disk" {
   lifecycle {
     ignore_changes = [
