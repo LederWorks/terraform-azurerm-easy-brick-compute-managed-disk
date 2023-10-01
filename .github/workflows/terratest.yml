@@ -1,4 +1,4 @@
-name: Terratest - terraform-azurerm-easy-brick-compute-mmanaged-disk
+name: Terratest - terraform-azurerm-easy-brick-compute-managed-disk
 
 # on:
 #   push:
