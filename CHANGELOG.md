@@ -1,5 +1,10 @@
 # Change Log
 
+## 0.5.1
+BUG FIXES:
+- Fixed example to match new property names
+- Added default null value to var.managed_disk
+
 ## 0.5.0
 FEATURES:
 - Added support for optimized_frequent_attach_enabled
