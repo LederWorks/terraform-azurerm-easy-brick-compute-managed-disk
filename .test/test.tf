@@ -19,17 +19,17 @@ module "terratest-category-purpose" {
   managed_disk = [
     #Disk1
     {
-      managed_disk_name = "ddsk-001-tde3ictest001"
-      managed_disk_storage_type = "Premium_LRS"
-      managed_disk_size_gb = 63
-      managed_disk_zone = 3
+      name = "ddsk-001-tde3ictest001"
+      storage_type = "Premium_LRS"
+      size_gb = 63
+      zone = 3
     },
     #Disk2
     {
-      managed_disk_name = "ddsk-002-tde3ictest001"
-      managed_disk_storage_type = "Standard_LRS"
-      managed_disk_size_gb = 63
-      managed_disk_zone = 3
+      name = "ddsk-002-tde3ictest001"
+      storage_type = "Standard_LRS"
+      size_gb = 63
+      zone = 3
     }
   ]
 
